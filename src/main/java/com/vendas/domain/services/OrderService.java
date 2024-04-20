@@ -17,8 +17,9 @@ public class OrderService {
     public List<Order> listOrders(){
         List<Order> list = orderRepository.findAll();
         return list;
-
     }
+
+
     public Order createOrder(Order order) {
         Order newOrder = orderRepository.save(order);
         return newOrder;

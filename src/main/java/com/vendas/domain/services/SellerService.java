@@ -14,19 +14,29 @@ public class SellerService {
 
     private final SellerRepository sellerRepository;
 
-    public List<Seller> findAll(){
-        return sellerRepository.findAll();
+    public List<Seller> listSellers(){
+        List<Seller> list = sellerRepository.findAll();
+        return list;
+
+    }
+    public Seller createSeller(Seller seller) {
+        Seller newSeller = sellerRepository.save(seller);
+        return newSeller;
     }
 
-    public Seller findbyId(Long id){
-        Optional<Seller> obj  = sellerRepository.findById(id);
-        return obj.get();
+    public Seller editSeller(Seller seller) {
+        Seller newSeller = sellerRepository.save(seller);
+        return newSeller;
     }
 
-    public Seller insert(Seller obj){
-        return sellerRepository.save(obj);
+    public Seller buscarPorId(Long id){
+        Optional<Seller> obj = sellerRepository.findById(id);
+        return obj.orElse(null);
     }
 
-
+    public Boolean deleteSeller(Long id){
+        sellerRepository.deleteById(id);
+        return true;
+    }
 
 }

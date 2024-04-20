@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name ="tb_order")
@@ -18,7 +20,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Instant date;
+    private LocalDate date;
 
     private Double price ;
 

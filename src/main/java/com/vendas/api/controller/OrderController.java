@@ -1,10 +1,8 @@
 package com.vendas.api.controller;
 
 import com.vendas.domain.model.Order;
-import com.vendas.domain.repository.OrderRepository;
 import com.vendas.domain.services.OrderService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +39,7 @@ public class OrderController {
     public ResponseEntity<Order> findById(@PathVariable Long id){
         return ResponseEntity.ok().body(orderService.buscarPorId(id));
     }
+
 
 
 
