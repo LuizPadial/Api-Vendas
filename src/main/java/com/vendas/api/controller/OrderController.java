@@ -24,64 +24,43 @@ public class OrderController {
 
 
     private OrderService orderService;
-//    @GetMapping()
-//    public ResponseEntity<List<Order>> listOrders(){
-//        return ResponseEntity.status(200).body(orderService.listOrders());
-//    }
+    private OrderMapper mapper;
 
     @GetMapping()
-    public ResponseEntity<List<OrderResponse>> listOrders(){
+    public ResponseEntity<List<OrderResponse>> listOrders() {
         List<Order> orders = orderService.listOrders();
-        List<OrderResponse> orderResponses = OrderMapper.toOrderResponseList(orders);
+        List<OrderResponse> orderResponses = mapper.toOrderResponseList(orders);
         return ResponseEntity.status(200).body(orderResponses);
     }
-//    @PostMapping
-//    public ResponseEntity<Order> createOrder(@RequestBody Order order){
-//        return ResponseEntity.status(201).body(orderService.createOrder(order));
-//    }
 
     @PostMapping
-    public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest request){
-        Order order = OrderMapper.toOrder(request);
-        Order orderCreated =orderService.createOrder(order);
-        OrderResponse orderResponse = OrderMapper.toOrderResponse(orderCreated);
+    public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest request) {
+        Order order = mapper.toOrder(request);
+        Order orderCreated = orderService.createOrder(order);
+        OrderResponse orderResponse = mapper.toOrderResponse(orderCreated);
         return ResponseEntity.status(201).body(orderResponse);
     }
 
-//    @PutMapping
-//    public ResponseEntity<Order> editOrder(@RequestBody Order order){
-//        return ResponseEntity.status(200).body(orderService.editOrder(order));
-//    }
-
     @PutMapping
-    public ResponseEntity<OrderResponse> editOrder(@RequestBody OrderRequest request){
-        Order order = OrderMapper.toOrder(request);
-        Order orderCreated =orderService.createOrder(order);
-        OrderResponse orderResponse = OrderMapper.toOrderResponse(orderCreated);
+    public ResponseEntity<OrderResponse> editOrder(@RequestBody OrderRequest request) {
+        Order order = mapper.toOrder(request);
+        Order orderCreated = orderService.createOrder(order);
+        OrderResponse orderResponse = mapper.toOrderResponse(orderCreated);
         return ResponseEntity.status(200).body(orderResponse);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteOrder(@PathVariable Long id){
+    public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
         return ResponseEntity.status(204).build();
     }
 
-//    @GetMapping(value = "/{id}")
-//    public ResponseEntity<Order> findById(@PathVariable Long id){
-//        return ResponseEntity.ok().body(orderService.buscarPorId(id));
-//    }
-
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Optional<OrderResponse>> findById(@PathVariable Long id){
+    public ResponseEntity<Optional<OrderResponse>> findById(@PathVariable Long id) {
         Optional<Order> optOrder = Optional.ofNullable(orderService.buscarPorId(id));
-        if(optOrder.isEmpty()){
+        if (optOrder.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.status(200).body(Optional.of(OrderMapper.toOrderResponse(optOrder.get())));
+        return ResponseEntity.status(200).body(Optional.of(mapper.toOrderResponse(optOrder.get())));
     }
-
-
-
-
 }

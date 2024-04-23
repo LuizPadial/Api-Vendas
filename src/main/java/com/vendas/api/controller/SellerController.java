@@ -25,25 +25,26 @@ public class SellerController {
     private final BusinessService businessService;
 
    private SellerService sellerService;
+   private SellerMapper mapper;
    @GetMapping()
    public ResponseEntity<List<SellerResponse>> listSellers(){
       List<Seller> sellers = sellerService.listSellers();
-      List<SellerResponse> sellerResponses = SellerMapper.toSellerResponseList(sellers);
+      List<SellerResponse> sellerResponses = mapper.toSellerResponseList(sellers);
       return ResponseEntity.status(200).body(sellerResponses);
    }
    @PostMapping
    public ResponseEntity<SellerResponse> createSeller(@RequestBody SellerRequest request){
-      Seller seller = SellerMapper.toSeller(request);
+      Seller seller = mapper.toSeller(request);
       Seller sellerCreated =sellerService.createSeller(seller);
-      SellerResponse sellerResponse = SellerMapper.toSellerResponse(sellerCreated);
+      SellerResponse sellerResponse = mapper.toSellerResponse(sellerCreated);
       return ResponseEntity.status(201).body(sellerResponse);
    }
 
    @PutMapping
    public ResponseEntity<SellerResponse> editSeller(@RequestBody SellerRequest request){
-      Seller seller = SellerMapper.toSeller(request);
+      Seller seller = mapper.toSeller(request);
       Seller sellerCreated =sellerService.createSeller(seller);
-      SellerResponse sellerResponse = SellerMapper.toSellerResponse(sellerCreated);
+      SellerResponse sellerResponse = mapper.toSellerResponse(sellerCreated);
       return ResponseEntity.status(200).body(sellerResponse);
    }
 
@@ -53,7 +54,7 @@ public class SellerController {
       if(optSeller.isEmpty()){
          return ResponseEntity.notFound().build();
       }
-      return ResponseEntity.status(200).body(Optional.of(SellerMapper.toSellerResponse(optSeller.get())));
+      return ResponseEntity.status(200).body(Optional.of(mapper.toSellerResponse(optSeller.get())));
    }
 
    @GetMapping("/total")

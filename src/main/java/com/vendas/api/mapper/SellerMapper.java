@@ -3,31 +3,31 @@ package com.vendas.api.mapper;
 import com.vendas.api.requestDTO.SellerRequest;
 import com.vendas.api.responseDTO.SellerResponse;
 import com.vendas.domain.model.Seller;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Component
+@RequiredArgsConstructor
 public class SellerMapper {
 
-    public static Seller toSeller(SellerRequest request){
-        Seller seller = new Seller();
-        seller.setName(request.getName());
-        seller.setOrders(request.getOrders());
-        return seller;
+    private final ModelMapper mapper;
+
+    public Seller toSeller(SellerRequest request) {
+        return mapper.map(request, Seller.class);
+
     }
 
-    public static SellerResponse toSellerResponse(Seller seller){
-        SellerResponse response = new SellerResponse();
-        response.setId(seller.getId());
-        response.setName(seller.getName());
-        return response;
+    public SellerResponse toSellerResponse(Seller seller) {
+        return mapper.map(seller, SellerResponse.class);
     }
 
-    public static List<SellerResponse> toSellerResponseList(List<Seller> sellers) {
-        List<SellerResponse> responses = new ArrayList<>();
-        for (Seller seller : sellers){
-            responses.add(toSellerResponse(seller));
-        }
-        return responses;
+    public List<SellerResponse> toSellerResponseList(List<Seller> sellers) {
+        return sellers.stream()
+                .map(this::toSellerResponse)
+                .collect(Collectors.toList());
     }
 }
