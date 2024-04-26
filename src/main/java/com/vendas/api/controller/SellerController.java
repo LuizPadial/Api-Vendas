@@ -74,9 +74,5 @@ public class SellerController {
       return ResponseEntity.status(204).build();
    }
 
-   @ExceptionHandler(DomainExceptions.class)
-   public ResponseEntity<String> capturar(DomainExceptions e){
-      return ResponseEntity.badRequest().body(e.getMessage());
-   }
 
 }

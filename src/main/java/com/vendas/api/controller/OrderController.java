@@ -59,8 +59,5 @@ public class OrderController {
         }
         return ResponseEntity.status(200).body(Optional.of(mapper.toOrderResponse(optOrder.get())));
     }
-    @ExceptionHandler(DomainExceptions.class)
-    public ResponseEntity<String> capturar(DomainExceptions e){
-        return ResponseEntity.badRequest().body(e.getMessage());
-    }
+
 }

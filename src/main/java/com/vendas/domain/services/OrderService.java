@@ -39,19 +39,33 @@ public class OrderService {
     }
 
     public Order editOrder(Order order) {
-        Order newOrder = orderRepository.save(order);
-        return newOrder;
+        if (order.getSeller() == null || order.getSeller().getId() == null) {
+            throw new DomainExceptions("O ID do vendedor não pode ser nulo");
+        }
+        Optional<Seller> sellerOptional = sellerRepository.findById(order.getSeller().getId());
+        if (!sellerOptional.isPresent()) {
+            throw new DomainExceptions("Vendedor com ID " + order.getSeller().getId() + " não encontrado");
+        }
+        return orderRepository.save(order);
     }
 
     public Order buscarPorId(Long id){
         Optional<Order> obj = orderRepository.findById(id);
+        if (obj.isEmpty()) {
+            throw new DomainExceptions("Número de pedido não existe no sistema");
+        }
         return obj.orElse(null);
     }
 
-    public Boolean deleteOrder(Long id){
+    public Boolean deleteOrder(Long id) {
+        Optional<Order> orderOptional = orderRepository.findById(id);
+        if (orderOptional.isEmpty()) {
+            throw new DomainExceptions("Pedido não existe no sistema");
+        }
         orderRepository.deleteById(id);
         return true;
     }
+
 
 
 
