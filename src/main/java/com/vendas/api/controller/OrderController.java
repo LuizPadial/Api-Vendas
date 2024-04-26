@@ -1,14 +1,9 @@
 package com.vendas.api.controller;
 
 import com.vendas.api.mapper.OrderMapper;
-import com.vendas.api.mapper.SellerMapper;
 import com.vendas.api.requestDTO.OrderRequest;
-import com.vendas.api.requestDTO.SellerRequest;
 import com.vendas.api.responseDTO.OrderResponse;
-import com.vendas.api.responseDTO.SellerResponse;
 import com.vendas.domain.model.Order;
-import com.vendas.domain.model.Order;
-import com.vendas.domain.model.Seller;
 import com.vendas.domain.services.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
