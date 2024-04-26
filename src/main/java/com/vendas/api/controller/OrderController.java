@@ -3,6 +3,7 @@ package com.vendas.api.controller;
 import com.vendas.api.mapper.OrderMapper;
 import com.vendas.api.requestDTO.OrderRequest;
 import com.vendas.api.responseDTO.OrderResponse;
+import com.vendas.domain.exceptions.DomainExceptions;
 import com.vendas.domain.model.Order;
 import com.vendas.domain.services.OrderService;
 import lombok.AllArgsConstructor;
@@ -57,5 +58,9 @@ public class OrderController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(200).body(Optional.of(mapper.toOrderResponse(optOrder.get())));
+    }
+    @ExceptionHandler(DomainExceptions.class)
+    public ResponseEntity<String> capturar(DomainExceptions e){
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 }

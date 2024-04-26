@@ -20,6 +20,9 @@ public class OrderService {
 
     public List<Order> listOrders(){
         List<Order> list = orderRepository.findAll();
+        if (list.isEmpty()) {
+            throw new DomainExceptions("Não há pedidos disponíveis no momento");
+        }
         return list;
     }
 

@@ -3,6 +3,7 @@ package com.vendas.api.controller;
 import com.vendas.api.mapper.SellerMapper;
 import com.vendas.api.requestDTO.SellerRequest;
 import com.vendas.api.responseDTO.SellerResponse;
+import com.vendas.domain.exceptions.DomainExceptions;
 import com.vendas.domain.model.Seller;
 import com.vendas.domain.services.BusinessService;
 import com.vendas.domain.services.SellerService;
@@ -71,6 +72,11 @@ public class SellerController {
    public ResponseEntity<?> deleteSeller(@PathVariable Long id){
       sellerService.deleteSeller(id);
       return ResponseEntity.status(204).build();
+   }
+
+   @ExceptionHandler(DomainExceptions.class)
+   public ResponseEntity<String> capturar(DomainExceptions e){
+      return ResponseEntity.badRequest().body(e.getMessage());
    }
 
 }

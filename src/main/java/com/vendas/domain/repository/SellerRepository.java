@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface SellerRepository extends JpaRepository<Seller, Long> {
 
     Optional<Seller> findById(Long id);
+
+    Optional<Seller> findByName(String name);
 }
